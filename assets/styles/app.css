@@ -1,1 +1,7 @@
+.bg-navbar {
+    background-color: #a7dbf6;
+}
 
+.product-image-container {
+    max-width: 200px;
+}
