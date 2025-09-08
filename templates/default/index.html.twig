@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4" {{ stimulus_controller('product') }}>
         {% for product in products %}
         <div class="col-4">
             <div class="card h-100">
@@ -17,10 +17,28 @@
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <button class="btn btn-primary">Ajouter</button>
+                    <button class="btn btn-primary" {{ stimulus_action('product', 'addtocart', 'click') }} data-product-id="{{ product.id }}">Ajouter</button>
                 </div>
             </div>
         </div>
         {% endfor %}
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="add-to-cart-success">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Product added to cart
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="add-to-cart-error">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Error while adding product to cart
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
     </div>
 {% endblock %}

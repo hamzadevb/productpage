@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container" {{ stimulus_controller('cart') }}>
+        <h1>Panier</h1>
+        <table class="table table-striped table-hover table-bordered align-middle">
+            <thead class="table-primary">
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price (DH)</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </thead>
+            <tbody class="table-group-divider" {{ stimulus_target('cart', 'table') }}>
+                {% for entry in cart.entries %}
+                <tr>
+                    <td>
+                        <div class="product-image-container mx-auto my-3">
+                            <img src="{{ asset('/images/product/' ~ entry.product.image) }}" class="card-img-top" alt="product image">
+                        </div>
+                    </td>
+                    <td>{{ entry.product.name }}</td>
+                    <td>{{ entry.product.price }}</td>
+                    <td>{{ entry.quantity }}</td>
+                    <td>
+                        <button class="btn btn-danger" {{ stimulus_action('cart', 'removefromcart', 'click') }} data-product-id="{{ entry.product.id }}">Supprimer</button>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <th colspan="4">Panier vide</th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h6>Total <span {{ stimulus_target('cart', 'total') }}></span> DH</h6>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="remove-from-cart-success">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Product removed from cart
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="remove-from-cart-error">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Error while removing product from cart
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
