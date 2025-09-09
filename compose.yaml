@@ -25,13 +25,13 @@ services:
         published: ${HTTP_PORT:-8000}
         protocol: tcp
       # HTTPS
-      - target: 443
-        published: ${HTTPS_PORT:-4443}
-        protocol: tcp
+#      - target: 443
+#        published: ${HTTPS_PORT:-4443}
+#        protocol: tcp
       # HTTP/3
-      - target: 443
-        published: ${HTTP3_PORT:-4443}
-        protocol: udp
+#      - target: 443
+#        published: ${HTTP3_PORT:-4443}
+#        protocol: udp
     networks:
       - ecom-local-network
       - smartep-shared-network
