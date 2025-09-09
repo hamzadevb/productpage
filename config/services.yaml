@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-
+    apiKey: '972ec0465c2b69931ea84d2368011c5006e0dcf23dfd6a3116c6c2426e9e'
+    apiSecret: '7f793898b50b2b71b9c7573123c99f79d9b0e60c983868fe9e0d9e406221e8f56107eaab4f00f0a720bd312730ec852f6cf794237c2d6da6d378b200'
 services:
     # default configuration for services in *this* file
     _defaults:

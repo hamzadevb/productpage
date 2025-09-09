@@ -69,4 +69,25 @@ export default class extends Controller {
 
         this.totalTarget.textContent = total.toFixed(2)
     }
+
+    initiatepayment() {
+        fetch(`/initiate/payment`, {
+            method: 'POST',
+        })
+        .then(response => {
+            if (!response.ok) {
+                alert('error')
+
+                return;
+            }
+
+            return response.json();
+        })
+        .then(data => {
+            window.location.href = data.checkoutUrl;
+        })
+        .catch(error => {
+            alert('error')
+        });
+    }
 }

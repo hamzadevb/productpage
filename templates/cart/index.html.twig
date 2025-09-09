@@ -26,14 +26,15 @@
                         <button class="btn btn-danger" {{ stimulus_action('cart', 'removefromcart', 'click') }} data-product-id="{{ entry.product.id }}">Supprimer</button>
                     </td>
                 </tr>
-                {% else %}
-                <tr>
-                    <th colspan="4">Panier vide</th>
-                </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <h6>Total <span {{ stimulus_target('cart', 'total') }}></span> DH</h6>
+        <div class="text-center">
+            <h3>Total <span {{ stimulus_target('cart', 'total') }}></span> DH</h3>
+            {% if cart.entries | length > 0 %}
+            <button class="btn btn-primary" {{ stimulus_action('cart', 'initiatepayment', 'click') }}>Payer</button>
+            {% endif %}
+        </div>
     </div>
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="remove-from-cart-success">

@@ -23,8 +23,14 @@ class Cart
     /**
      * @var Collection<int, CartEntry>
      */
-    #[ORM\OneToMany(targetEntity: CartEntry::class, mappedBy: 'cart')]
+    #[ORM\OneToMany(targetEntity: CartEntry::class, mappedBy: 'cart', cascade: ['persist', 'remove'])]
     private Collection $entries;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $status = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $transaction = null;
 
     public function __construct()
     {
@@ -75,6 +81,41 @@ class Cart
                 $entry->setCart(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTotal(): float
+    {
+        $total = 0.0;
+
+        foreach ($this->entries as $entry) {
+            $total += $entry->getTotal();
+        }
+
+        return $total;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?bool $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getTransaction(): ?string
+    {
+        return $this->transaction;
+    }
+
+    public function setTransaction(?string $transaction): static
+    {
+        $this->transaction = $transaction;
 
         return $this;
     }
